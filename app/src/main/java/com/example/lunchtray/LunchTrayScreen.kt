@@ -29,7 +29,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 // TODO: Screen enum
 
 enum class LunchTrayScreen(@StringRes val title: Int){
-    String(title = R.string.app_name),
+    Start(title = R.string.app_name),
     Entree(title = R.string.choose_entree),
     SideDish(title = R.string.choose_side_dish),
     Accompaniment(title = R.string.choose_accompaniment),
@@ -48,6 +48,11 @@ fun LunchTrayApp() {
 
     //2- Creación de backStackEntry(obtenemos la entrada actual)
     val backStackEntry by navController.currentBackStackEntryAsState()
+
+    //3- Determinamos la pantalla actual
+    val currentScreen = LunchTrayScreen.valueOf(
+        backStackEntry?.destination?.route ?: LunchTrayScreen.Start.name
+    )
 
     // Create ViewModel
     val viewModel: OrderViewModel = viewModel()
